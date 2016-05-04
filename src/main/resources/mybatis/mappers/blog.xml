@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blog">
+
+	<insert id='insert' parameterType='blogvo'>
+	<![CDATA[ INSERT INTO blog VALUES(null, #{userNo }, #{title },#{logoImage }) ]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<delete id='delete' parameterType='long'>
+		<![CDATA[ DELETE FROM blog WHERE userNo=#{userNo } ]]>
+	</delete>
+
+	<update id='update' parameterType='blogvo'>
+		<![CDATA[ UPDATE blog SET title=#{title }, logoImage=#{logoImage } WHERE userNo=#{userNo } ]]>
+	</update>
+
+	<!--  string은 map으로 감싸서 보내줄것 -->
+	<!--  블로그 제목을 통한 검색.. 이것도 권장 아닐텐데.. -->
+	<select id='getByTitle' resultType='blogvo' parameterType="string">
+		<![CDATA[ SELECT b.blogNo, b.userNo, b.title, bu.userName FROM blog b, bloguser bu WHERE b.userNo=bu.userNo AND b.title=#{title } ]]>
+	</select>
+
+	<!-- 사용자 검색을 통한 블로그 검색.. 은 구현할 일이 없겠지 -->
+	<select id='getByUserNo' resultType='blogvo' parameterType="long">
+		<![CDATA[ SELECT b.blogNo, b.userNo, b.title, bu.userName FROM blog b, bloguser bu WHERE b.userNo=bu.userNo AND b.userNo=#{userNo } ]]>	
+	</select>
+	
+	<select id='getByBlogNo' resultType='blogvo' parameterType="long">
+		<![CDATA[ SELECT b.blogNo, b.userNo, b.title, b.logoImage, bu.userName FROM blog b, bloguser bu WHERE b.userNo=bu.userNo AND b.blogNo=#{blogNo } ]]>	
+	</select>
+	
+	<!--  string은 map으로 감싸서 보내줄것 -->
+	<!--  메인에 띄울 blog 정보를 위해서?-->
+	<select id='getByUserName' resultType='blogvo' parameterType='string'>
+		<![CDATA[ SELECT b.blogNo, b.userNo, b.title, b.logoImage, bu.userName FROM blog b, bloguser bu WHERE b.userNo=bu.userNo AND bu.userName=#{userName }]]>
+	</select>
+	
+</mapper>

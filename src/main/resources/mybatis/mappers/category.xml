@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+
+	<insert id='insert' parameterType='categoryvo'>
+	<![CDATA[ INSERT INTO category VALUES (null, #{blogNo }, #{categoryNo }, #{description }, 
+					(SELECT COUNT(*) FROM post WHERE categoryNo=#{categoryNo } ) ) ]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<delete id='deleteByNo' parameterType='long'>
+		<![CDATA[ DELETE FROM category WHERE categoryNo=#{categoryNo }]]>
+	</delete>
+	
+	<delete id='deleteByBlogNo' parameterType='long'>
+		<![CDATA[ DELETE FROM category WHERE blogNo=#{blogNo }]]>
+	</delete>
+	
+	<!--  string은 MAP으로 감싸줄것 -->
+	<delete id='deleteByName' parameterType='string'>
+		<![CDATA[ DELETE FROM category WHERE categoryName=#{categoryName }]]>
+	</delete>
+
+	<update id='update' parameterType='long'>
+		<![CDATA[ UPDATE category SET categoryName=#{categoryName }, description=#{description } WHERE categoryNo=#{categoryNo }]]>
+	</update>
+
+	<select id='getPostCount' resultType='int' parameterType='long'>
+		<![CDATA[ SELECT COUNT(*) FROM post WHERE categoryNo=#{categoryNo } ]]>
+	</select>
+
+	<select id='getList' resultType='categoryvo' parameterType='long'>
+		<![CDATA[ SELECT categoryName, description, postCount FROM category WHERE blogNo=#{blogNo }]]>	
+	</select>
+	
+	<select id='getByNo' resultType='categoryvo' parameterType='long'>
+		<![CDATA[ SELECT * FROM category WHERE categoryNo=#{categoryNo }]]>	
+	</select>
+	
+	<!--  string은 MAP으로 감싸줄것 -->
+	<select id='getByName' resultType='categoryvo' parameterType='string'>
+		<![CDATA[ SELECT * FROM category WHERE categoryName=#{categoryName }]]>	
+	</select>
+	
+</mapper>

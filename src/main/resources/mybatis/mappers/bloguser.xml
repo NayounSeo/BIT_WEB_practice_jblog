@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bloguser">
+
+	<insert id='insert' parameterType='bloguservo'>
+	<![CDATA[ INSERT INTO bloguser VALUES(null, #{userName }, password(#{password}), NOW( ) ) ]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<delete id='delete' parameterType='bloguservo'>
+		<![CDATA[ DELETE FROM bloguser WHERE userNo=#{userNo } AND password=password(#{password }) ]]>
+	</delete>
+
+	<update id='update' parameterType='bloguservo'>
+		<![CDATA[ UPDATE bloguser SET userName=#{userName }, ]]>
+		<if test='password != ""'>
+			<![CDATA[ password=#{password} ]]>
+		</if>
+		<![CDATA[ WHERE userNo=#{userNo }]]>
+	</update>
+
+	<select id="getByNo" resultType='bloguservo' parameterType="long">
+		<![CDATA[ SELECT * FROM bloguser WHERE userNo=#{userNo } ]]>
+	</select>
+
+	<select id="getByNamePassword" resultType='bloguservo' parameterType='bloguservo' >
+		<![CDATA[ SELECT * FROM bloguser WHERE userName=#{userName } AND password=password(#{password }) ]]>	
+	</select>
+	
+	<!--  string은 map으로 감싸서 보내줄것 -->
+	<select id="getByName" resultType='bloguservo' parameterType='string' >
+		<![CDATA[ SELECT * FROM bloguser WHERE userName=#{userName } ]]>	
+	</select>
+	
+</mapper>
