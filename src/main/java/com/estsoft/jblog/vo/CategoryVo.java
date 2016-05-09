@@ -7,6 +7,16 @@ public class CategoryVo {
 	private String description;
 	private int postCount;
 	
+	public CategoryVo( long blogNo ) {
+		this.blogNo = blogNo;
+		this.categoryName = "기본 분류";
+		this.description = "기본 분류입니다.";
+	}
+	
+	public CategoryVo( ) {
+		//에러를 피하기 위한 기본 생성자
+	}
+	
 	public long getCategoryNo() {
 		return categoryNo;
 	}

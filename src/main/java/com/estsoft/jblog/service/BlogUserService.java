@@ -33,4 +33,8 @@ public class BlogUserService {
 		return dao.get(blogUserVo);
 	}
 	
+	public BlogUserVo getUser( String userName ) {
+		return dao.get(userName);
+	}
+	
 }

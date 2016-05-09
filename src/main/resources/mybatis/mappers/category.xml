@@ -5,7 +5,7 @@
 	<insert id='insert' parameterType='categoryvo'>
 	<![CDATA[ INSERT INTO category VALUES (null, #{blogNo }, #{categoryNo }, #{description }, 
 					(SELECT COUNT(*) FROM post WHERE categoryNo=#{categoryNo } ) ) ]]>
-		<selectKey keyProperty="no" resultType="long" order="AFTER">
+		<selectKey keyProperty="categoryNo" resultType="long" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
@@ -32,7 +32,7 @@
 	</select>
 
 	<select id='getList' resultType='categoryvo' parameterType='long'>
-		<![CDATA[ SELECT categoryName, description, postCount FROM category WHERE blogNo=#{blogNo }]]>	
+		<![CDATA[ SELECT * FROM category WHERE blogNo=#{blogNo }]]>	
 	</select>
 	
 	<select id='getByNo' resultType='categoryvo' parameterType='long'>

@@ -5,11 +5,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class BlogUserVo {
 	private long userNo;
-	@NotEmpty
-	@Length(min = 2, max = 10)
+	@NotEmpty(message="별명은 꼭 입력해주세요.")
+	@Length(min = 2, max = 10, message="별명은 2자 이상 10자 이하여야합니다.")
 	private String userName;
-	@NotEmpty
-	@Length(min = 8, max = 20)
+	@NotEmpty(message="비밀번호는 꼭 입력해주세요.")
+	//@Length(min = 8, max = 20)
 	private String password;
 	private String regDate;
 	

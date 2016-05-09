@@ -49,7 +49,7 @@ public class CategoryDao {
 	}*/
 	
 	public List<CategoryVo> get( long blogNo ) {
-		List<CategoryVo> list = sqlSession.selectList("category.getList");	
+		List<CategoryVo> list = sqlSession.selectList("category.getList", blogNo);	
 		return list;
 	}
 	

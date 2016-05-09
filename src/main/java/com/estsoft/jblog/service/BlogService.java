@@ -23,8 +23,12 @@ public class BlogService {
 		dao.update(blogVo);
 	}
 	
-	public BlogVo getBlog( long userNo ) {
-		return dao.get(userNo);
+	public BlogVo getBlogByUserNo( long userNo ) {
+		return dao.getByUserNo(userNo);
+	}
+	
+	public BlogVo getBlogByBlogNo( long blogNo ) {
+		return dao.getByBlogNo(blogNo);
 	}
 	
 	public BlogVo getBlog( String userName ) {

@@ -26,8 +26,12 @@ public class BlogDao {
 		sqlSession.update("blog.update", blogVo);
 	}
 	
-	public BlogVo get( long userNo ) {
-		return sqlSession.selectOne("blog.getByBlogNo", userNo);
+	public BlogVo getByUserNo( long userNo ) {
+		return sqlSession.selectOne("blog.getByUserNo", userNo);
+	}
+	
+	public BlogVo getByBlogNo( long blogNo ) {
+		return sqlSession.selectOne("blog.getByBlogNo", blogNo);
 	}
 	
 	public BlogVo get( String userName ) {

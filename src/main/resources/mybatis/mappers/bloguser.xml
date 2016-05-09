@@ -4,7 +4,7 @@
 
 	<insert id='insert' parameterType='bloguservo'>
 	<![CDATA[ INSERT INTO bloguser VALUES(null, #{userName }, password(#{password}), NOW( ) ) ]]>
-		<selectKey keyProperty="no" resultType="long" order="AFTER">
+		<selectKey keyProperty="userNo" resultType="long" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>

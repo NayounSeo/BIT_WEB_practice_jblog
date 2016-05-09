@@ -3,8 +3,8 @@
 <mapper namespace="blog">
 
 	<insert id='insert' parameterType='blogvo'>
-	<![CDATA[ INSERT INTO blog VALUES(null, #{userNo }, #{title },#{logoImage }) ]]>
-		<selectKey keyProperty="no" resultType="long" order="AFTER">
+	<![CDATA[ INSERT INTO blog VALUES(null, #{userNo }, #{userName }, #{title },#{logoImage }) ]]>
+		<selectKey keyProperty="blogNo" resultType="long" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
@@ -14,7 +14,7 @@
 	</delete>
 
 	<update id='update' parameterType='blogvo'>
-		<![CDATA[ UPDATE blog SET title=#{title }, logoImage=#{logoImage } WHERE userNo=#{userNo } ]]>
+		<![CDATA[ UPDATE blog SET title=#{title }, logoImage=#{logoImage } WHERE blogNo=#{blogNo } ]]>
 	</update>
 
 	<!--  string은 map으로 감싸서 보내줄것 -->
@@ -25,17 +25,17 @@
 
 	<!-- 사용자 검색을 통한 블로그 검색.. 은 구현할 일이 없겠지 -->
 	<select id='getByUserNo' resultType='blogvo' parameterType="long">
-		<![CDATA[ SELECT b.blogNo, b.userNo, b.title, bu.userName FROM blog b, bloguser bu WHERE b.userNo=bu.userNo AND b.userNo=#{userNo } ]]>	
+		<![CDATA[ SELECT * FROM blog b WHERE b.userNo=#{userNo } ]]>	
 	</select>
 	
 	<select id='getByBlogNo' resultType='blogvo' parameterType="long">
-		<![CDATA[ SELECT b.blogNo, b.userNo, b.title, b.logoImage, bu.userName FROM blog b, bloguser bu WHERE b.userNo=bu.userNo AND b.blogNo=#{blogNo } ]]>	
+		<![CDATA[ SELECT * FROM blog WHERE blogNo=#{blogNo } ]]>	
 	</select>
 	
 	<!--  string은 map으로 감싸서 보내줄것 -->
 	<!--  메인에 띄울 blog 정보를 위해서?-->
 	<select id='getByUserName' resultType='blogvo' parameterType='string'>
-		<![CDATA[ SELECT b.blogNo, b.userNo, b.title, b.logoImage, bu.userName FROM blog b, bloguser bu WHERE b.userNo=bu.userNo AND bu.userName=#{userName }]]>
+		<![CDATA[ SELECT * FROM blog WHERE userName=#{userName }]]>
 	</select>
 	
 </mapper>
