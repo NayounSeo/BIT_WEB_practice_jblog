@@ -19,15 +19,18 @@
 					<li><a href="${pageContext.request.contextPath}/blog/managecategory/${blogVo.blogNo }">카테고리</a></li>
 					<li class="selected">글작성</li>
 				</ul>
-				<form action="" method="post">
+				<form action="${pageContext.request.contextPath}/post/write" method="POST">
+				<input type="hidden" name="userName" value=${userName }>
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
-				      			<select name="category">
-				      				<option>미분류</option>
-				      				<option>자바</option>
+			      				<!-- option value와 select name을 이용! -->
+				      			<select name="categoryNo">
+				      				<c:forEach items='${categoryList }' var='vo' varStatus='status'>
+				      					<option value=${vo.categoryNo }>${vo.categoryName }</option>
+				      				</c:forEach>
 				      			</select>
 				      		</td>
 			      		</tr>

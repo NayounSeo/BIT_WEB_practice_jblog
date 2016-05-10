@@ -34,5 +34,9 @@ public class PostDao {
 		return list;
 	}
 	
+	public long getFirst( long categoryNo ) {
+		return sqlSession.selectOne("post.getFirstPostOfCategory", categoryNo );
+	}
+	
 }
 

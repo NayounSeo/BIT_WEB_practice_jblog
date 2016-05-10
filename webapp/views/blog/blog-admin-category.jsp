@@ -27,32 +27,34 @@
 		      			<th>설명</th>
 		      			<th>삭제</th>      			
 		      		</tr>
-					<tr>
-						<c:forEach items='${categoryList }' var='vo' varStatus='status'>
+					<c:forEach items='${categoryList }' var='vo' varStatus='status'>
+						<tr>
 							<td>${vo.categoryNo }</td>
 							<td>${vo.categoryName }</td>
 							<td>${vo.postCount }</td>
 							<td>${vo.description }</td>
-							<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-						</c:forEach>
-					</tr>
+							<td><a href='${pageContext.request.contextPath}/category/delete/${vo.categoryNo }'><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a></td>
+						</tr>
+					</c:forEach>
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-		      	<table id="admin-cat-add">
-		      		<tr>
-		      			<td class="t">카테고리명</td>
-		      			<td><input type="text" name="name"></td>
-		      		</tr>
-		      		<tr>
-		      			<td class="t">설명</td>
-		      			<td><input type="text" name="desc"></td>
-		      		</tr>
-		      		<tr>
-		      			<td class="s">&nbsp;</td>
-		      			<td><input type="submit" value="카테고리 추가"></td>
-		      		</tr>      		      		
-		      	</table> 
+      			<form id="category-insert" method='POST'  action="${pageContext.request.contextPath}/category/insert/${blogNo}">
+			      	<table id="admin-cat-add">
+			      		<tr>
+			      			<td class="t">카테고리명</td>
+			      			<td><input type="text" id="categoryName" name='categoryName'></td>
+			      		</tr>
+			      		<tr>
+			      			<td class="t">설명</td>
+			      			<td><input type="text" name="description"></td>
+			      		</tr>
+			      		<tr>
+			      			<td class="s">&nbsp;</td>
+			      			<td><input type="submit" value="카테고리 추가"></td>
+			      		</tr>      		      		
+			      	</table>
+			      </form> 
 			</div>
 		</div>
 		<c:import url="/views/include/footerblog.jsp"/>

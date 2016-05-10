@@ -33,11 +33,24 @@ public class CategoryService {
 		dao.update(categoryNo);
 	}
 	
+	public void updatePostCount( long categoryNo ) {
+		dao.updatePostCount(categoryNo);
+	}
+	
 	public List<CategoryVo> showCategoryList( long blogNo ) {
-		return dao.get(blogNo);
+		return dao.getList(blogNo);
 	}
 	
 	public CategoryVo getCategory( String categoryName ) {
 		return dao.get(categoryName);
 	}
+	
+	public CategoryVo getCategory( long categoryNo ) {
+		return dao.get(categoryNo);
+	}
+	
+	public long getFirstCategory( long blogNo ) {
+		return dao.getFirstCategory(blogNo);
+	}
+	
 }

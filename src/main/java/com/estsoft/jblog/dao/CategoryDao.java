@@ -40,15 +40,28 @@ public class CategoryDao {
 		sqlSession.update("category.update", categoryNo);
 	}
 	
+	public void updatePostCount( long categoryNo ) {
+		sqlSession.update("category.updatePostCount", categoryNo);
+	}
+	/*
 	public int getPostCount( long categoryNo ) {
 		return sqlSession.selectOne("category.getPostCount", categoryNo);
 	}
+	*/
 	
-	/*public CategoryVo get( long categoryNo ) {
+	public long getFirstCategory( long blogNo ) {
+		long categoryNo = sqlSession.selectOne("category.getFirstCategoryOfBlog", blogNo);
+		System.out.println();
+		System.out.println("DAO에서의 categoryNo "+categoryNo);
+		System.out.println();
+		return categoryNo;
+	}
+	
+	public CategoryVo get( long categoryNo ) {
 		return sqlSession.selectOne("category.getByNo", categoryNo);
-	}*/
+	}
 	
-	public List<CategoryVo> get( long blogNo ) {
+	public List<CategoryVo> getList( long blogNo ) {
 		List<CategoryVo> list = sqlSession.selectList("category.getList", blogNo);	
 		return list;
 	}

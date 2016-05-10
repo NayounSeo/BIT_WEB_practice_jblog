@@ -7,16 +7,22 @@
 	<div id="header">
 		<h1>${blogVo.title }</h1>
 		<ul>
-			<c:choose>
-				<c:when test='${empty authUser }'>
+			<!--c:choose-->
+			<c:if test='${empty authUser == true }'>
+				<!-- c:when test='${empty authUser }' -->
 					<li><a href='${pageContext.request.contextPath}/user/loginform'>로그인</a></li>
 					<li><a href='${pageContext.request.contextPath}/user/joinform'>회원가입</a></li>
-				</c:when>
-				<c:otherwise>
+				<!--/c:when-->
+			</c:if>
+			<c:if test='${empty authUser != true'>
+				<!--c:otherwise-->
 					<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/adminbasic/${authUser.userNo}">블로그 관리</a></li>
-				</c:otherwise>
-			</c:choose>
+					<c:if test='${authUser ==  blogVo.userNo  }'>
+						<li><a href="${pageContext.request.contextPath}/blog/adminbasic/${authUser.userNo}">블로그 관리</a></li>
+					</c:if>
+				<!--/c:otherwise-->
+			<!--/c:choose-->
+			</c:if>
 		</ul>
 	</div>
 </div>

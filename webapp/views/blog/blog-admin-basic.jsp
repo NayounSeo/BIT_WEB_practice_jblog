@@ -20,7 +20,6 @@
 					<li><a href="${pageContext.request.contextPath}/blog/writepost/${blogVo.blogNo }">글작성</a></li>
 				</ul>
 				<form action='${pageContext.request.contextPath}/blog/modifyblog' method='POST'>
-				<!--  아니.. 이분은 왜 안넘어간대요?ㅜㅠㅜ -->
 				<input type='hidden' id='blogNo' name="blogNo" value="${blogVo.blogNo }">
 	 		      	<table class="admin-config">
 			      		<tr>

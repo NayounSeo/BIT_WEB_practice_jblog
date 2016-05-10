@@ -32,4 +32,8 @@ public class PostService {
 	public List<PostVo> showPostList( long categoryNo ) {
 		return dao.getByCategory(categoryNo);
 	}
+	
+	public long showFirstPost( long categoryNo ) {
+		return dao.getFirst(categoryNo);
+	}
 }

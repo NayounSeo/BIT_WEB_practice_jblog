@@ -3,8 +3,7 @@
 <mapper namespace="category">
 
 	<insert id='insert' parameterType='categoryvo'>
-	<![CDATA[ INSERT INTO category VALUES (null, #{blogNo }, #{categoryNo }, #{description }, 
-					(SELECT COUNT(*) FROM post WHERE categoryNo=#{categoryNo } ) ) ]]>
+	<![CDATA[ INSERT INTO category VALUES (null, #{blogNo }, #{categoryName }, #{description }, 0 ) ]]>
 		<selectKey keyProperty="categoryNo" resultType="long" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -27,6 +26,11 @@
 		<![CDATA[ UPDATE category SET categoryName=#{categoryName }, description=#{description } WHERE categoryNo=#{categoryNo }]]>
 	</update>
 
+	<update id='updatePostCount' parameterType='long'>
+		<![CDATA[ UPDATE category SET postCount=(SELECT COUNT(*) FROM post WHERE categoryNo=#{categoryNo }) WHERE categoryNo=#{categoryNo }]]>
+	</update>
+
+	<!--  이건 왜 만들었담 -->
 	<select id='getPostCount' resultType='int' parameterType='long'>
 		<![CDATA[ SELECT COUNT(*) FROM post WHERE categoryNo=#{categoryNo } ]]>
 	</select>
@@ -42,6 +46,10 @@
 	<!--  string은 MAP으로 감싸줄것 -->
 	<select id='getByName' resultType='categoryvo' parameterType='string'>
 		<![CDATA[ SELECT * FROM category WHERE categoryName=#{categoryName }]]>	
+	</select>
+	
+	<select id='getFirstCategoryOfBlog' resultType='long' parameterType='long'>
+		<![CDATA[SELECT MIN(categoryNo) FROM category WHERE blogNo=#{blogNo}]]>
 	</select>
 	
 </mapper>

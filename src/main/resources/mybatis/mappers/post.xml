@@ -29,6 +29,10 @@
 		<![CDATA[  SELECT * FROM post WHERE categoryNo=#{categoryNo }]]>	
 	</select>
 	
+	<select id='getFirstPostOfCategory' resultType='long' parameterType='long'>
+		<![CDATA[SELECT MIN(postNo) FROM post WHERE categoryNo=#{categoryNo}]]>
+	</select>
+	
 	<!--  이게... 생각해보니 post도 blogNo를 갖고있던지 해야지 아니면 join이 세 개짜리네... -->
 	<!-- select id='getAllList' resultType='postvo' parameterType='long'>
 		<![CDATA[ SELECT * FROM post WHERE  ]]>	
